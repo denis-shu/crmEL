@@ -2,6 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const keys = require('../config/keys');
+const errorHandler = require('../Utils/errorHandler.js');
 
 module.exports.login = async function (req, res) {
     const entity = await User.findOne({
@@ -16,7 +17,7 @@ module.exports.login = async function (req, res) {
                 email: entity.email,
                 userId: entity._id
             }, keys.jwt, {
-                expiresIn: 60*30
+                expiresIn: 60 * 30
             })
 
             res.status(200).json({
@@ -56,7 +57,7 @@ module.exports.register = async function (req, res) {
                 user
             })
         } catch (e) {
-
+            errorHandler(res, e)
         }
     }
 }

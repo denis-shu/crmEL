@@ -23,8 +23,10 @@ mongoose.connect(keys.mongoURI, {
 
 app.use(passport.initialize());
 require('./middleware/passport')(passport);
+app.use('uploads/', express.static('uploads'))
 app.use(require('morgan')('dev'));
 app.use(require('cors')());
+
 
 app.use(bodyParser.urlencoded({
     extended: true
